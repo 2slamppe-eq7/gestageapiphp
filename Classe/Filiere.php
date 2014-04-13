@@ -23,19 +23,48 @@ class Filiere {
     }
     
     public static function getOne($numFiliere){
-        $connexion = new DbConnect();
+        $connexion = DbConnect::connect();
         $sql = "SELECT * FROM FILIERE WHERE NUMFILIERE = ".$numFiliere;
-        $query = $connexion->execute($sql);
-        $rs = $query->fectchAll();
+        $query = $connexion->query($sql);
+        $rs = $query->fetchAll();
         
         foreach($rs as $row){
             $filiere = new Filiere($row['NUMFILIERE'], $row['LIBELLEFILIERE']);
         }
-        $connexion->close();
+        
         return $filiere;
             
     }
     
+    
+            public static function getAll(){
+        $connexion = DbConnect::connect();
+        $sql = "SELECT * FROM FILIERE";
+        $query = $connexion->query($sql);
+        $rs = $query->fetchAll();
+        foreach($rs as $row){            
+            $listFiliere[] = new Filiere($row['NUMFILIERE'], $row['LIBELLEFILIERE']);
+        }
+        
+        return $listFiliere;
+    }
+    public function getNumFiliere() {
+        return $this->numFiliere;
+    }
+
+    public function setNumFiliere($numFiliere) {
+        $this->numFiliere = $numFiliere;
+    }
+
+    public function getLibelleFiliere() {
+        return $this->LibelleFiliere;
+    }
+
+    public function setLibelleFiliere($LibelleFiliere) {
+        $this->LibelleFiliere = $LibelleFiliere;
+    }
+
+
     
 }
 

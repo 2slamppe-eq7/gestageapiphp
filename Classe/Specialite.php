@@ -24,10 +24,10 @@ class Specialite {
     }
     
     public static function getOne($idSpecialite){
-        $connexion = new DbConnect();
+        $connexion = DbConnect::connect();
         $sql = "SELECT * FROM SPECIALITE WHERE IDSPECIALITE = ".$idSpecialite;
-        $query = $connexion->execute($sql);
-        $rs = $query->fectchAll();
+        $query = $connexion->query($sql);
+        $rs = $query->fetchAll();
         
         foreach($rs as $row){
             
@@ -36,10 +36,36 @@ class Specialite {
             $specialite = new Specialite($row['IDSPECIALITE'],$filiere,$row['LIBELLELONGSPECIALITE']);
                         
         }
-        $connexion->close();
+        
         return $specialite;
             
     }
+    
+    public function getIdSpecialite() {
+        return $this->idSpecialite;
+    }
+
+    public function setIdSpecialite($idSpecialite) {
+        $this->idSpecialite = $idSpecialite;
+    }
+
+    public function getFiliere() {
+        return $this->filiere;
+    }
+
+    public function setFiliere($filiere) {
+        $this->filiere = $filiere;
+    }
+
+    public function getLibelleSpecialite() {
+        return $this->libelleSpecialite;
+    }
+
+    public function setLibelleSpecialite($libelleSpecialite) {
+        $this->libelleSpecialite = $libelleSpecialite;
+    }
+
+
 }
 
 ?>

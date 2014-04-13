@@ -16,21 +16,27 @@ class AnneeScol {
     public function __construct($anneeScol = null){
         $this->anneeScol = $anneeScol;
     }
-    
-    public static function getAll(){
-        $connexion = new DbConnect();
-        $sql = "SELECT * FROM ANNEESCOL";
-        $query = $connexion->prepare($sql);
-        $rs = $query->execute();
-        $rowset = $rs->fetchAll();
-        $listAnnee= Array();
-        foreach($rowset as $row){
-            
-            $listAnnee[] = new Classe($row['ANNEESCOL']);
-        }
-        $connexion->close();
-        return $listClass;
+    public function getAnneeScol() {
+        return $this->anneeScol;
     }
+
+    public function setAnneeScol($anneeScol) {
+        $this->anneeScol = $anneeScol;
+    }
+
+        public static function getAll(){
+        $connexion = DbConnect::connect();
+        $sql = "SELECT * FROM ANNEESCOL ";
+        $query = $connexion->query($sql);
+        $rs = $query->fetchAll();
+        foreach($rs as $row){            
+            $listAnnee[] = new AnneeScol($row['ANNEESCOL']);
+        }
+        
+        return $listAnnee;
+    }
+    
+
 }
 
 ?>

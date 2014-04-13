@@ -6,12 +6,12 @@
  */
 
 /**
- * Description of Professeur
+ * Description of MaitreStage
  *
  * @author btssio
  */
-class Professeur {
-    private $idPersonne;
+class MaitreStage {
+        private $idPersonne;
     private $civilite;
     private $nom;
     private $prenom;
@@ -35,18 +35,18 @@ class Professeur {
           
     }
     
-    public static function getOne($login){
+    public static function getOne($idMaitreStage){
         
         $connexion = DbConnect::connect();
-        $sql = "SELECT p1.IDPERSONNE,p1.CIVILITE,p1.NOM,p1.PRENOM,p1.NUM_TEL,p1.ADRESSE_MAIL,p1.NUM_TEL_MOBILE,p1.LOGINUTILISATEUR,p1.MDPUTILISATEUR FROM PERSONNE p1 INNER JOIN PROFESSEUR p2 ON p1.IDPERSONNE = p2.IDPERSONNE WHERE p1.LOGINUTILISATEUR = '".$login."'";
+        $sql = "SELECT p1.IDPERSONNE,p1.CIVILITE,p1.NOM,p1.PRENOM,p1.NUM_TEL,p1.ADRESSE_MAIL,p1.NUM_TEL_MOBILE,p1.LOGINUTILISATEUR,p1.MDPUTILISATEUR FROM PERSONNE p1 INNER JOIN MAITRE_STAGE m ON p1.IDPERSONNE = m.IDPERSONNE WHERE p1.IDPERSONNE = '".$idMaitreStage."'";
         $query = $connexion->query($sql);
         $rs = $query->fetchAll();
         
         foreach($rs as $row){
-            $professeur = new Professeur($row['IDPERSONNE'],$row['CIVILITE'],$row['NOM'],$row['PRENOM'],$row['NUM_TEL'],$row['ADRESSE_MAIL'],$row['NUM_TEL_MOBILE'],$row['LOGINUTILISATEUR'],$row['MDPUTILISATEUR'] );
+            $maitreStage = new MaitreStage($row['IDPERSONNE'],$row['CIVILITE'],$row['NOM'],$row['PRENOM'],$row['NUM_TEL'],$row['ADRESSE_MAIL'],$row['NUM_TEL_MOBILE'],$row['LOGINUTILISATEUR'],$row['MDPUTILISATEUR'] );
         }
         
-        return $professeur;
+        return $maitreStage;
     }
     
     public function getIdPersonne() {

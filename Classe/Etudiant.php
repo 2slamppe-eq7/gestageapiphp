@@ -6,12 +6,13 @@
  */
 
 /**
- * Description of Professeur
+ * Description of Etudiant
  *
  * @author btssio
  */
-class Professeur {
+class Etudiant {
     private $idPersonne;
+    private $classe;
     private $civilite;
     private $nom;
     private $prenom;
@@ -21,9 +22,11 @@ class Professeur {
     private $login;
     private $mdp;
     
-    public function __construct($idPersonne = null,$civilite = null,$nom = null,$prenom = null,$numTel = null,$adresseMail = null,$numTelMobile = null,$login = null,$mdp = null)
+    
+    public function __construct($idPersonne = null,$classe = null,$civilite = null,$nom = null,$prenom = null,$numTel = null,$adresseMail = null,$numTelMobile = null,$login = null,$mdp = null)
     {
         $this->idPersonne = $idPersonne;
+        $this->classe = $classe;
         $this->civilite = $civilite;
         $this->nom = $nom;
         $this->prenom = $prenom;
@@ -35,18 +38,19 @@ class Professeur {
           
     }
     
-    public static function getOne($login){
+    public static function getOne($idEtudiant){
         
         $connexion = DbConnect::connect();
-        $sql = "SELECT p1.IDPERSONNE,p1.CIVILITE,p1.NOM,p1.PRENOM,p1.NUM_TEL,p1.ADRESSE_MAIL,p1.NUM_TEL_MOBILE,p1.LOGINUTILISATEUR,p1.MDPUTILISATEUR FROM PERSONNE p1 INNER JOIN PROFESSEUR p2 ON p1.IDPERSONNE = p2.IDPERSONNE WHERE p1.LOGINUTILISATEUR = '".$login."'";
+        $sql = "SELECT p1.IDPERSONNE,e.NUMCLASSE,p1.CIVILITE,p1.NOM,p1.PRENOM,p1.NUM_TEL,p1.ADRESSE_MAIL,p1.NUM_TEL_MOBILE,p1.LOGINUTILISATEUR,p1.MDPUTILISATEUR FROM PERSONNE p1 INNER JOIN ETUDIANT e ON e.IDPERSONNE = p1.IDPERSONNE WHERE e.IDPERSONNE= '".$idEtudiant."'";
         $query = $connexion->query($sql);
         $rs = $query->fetchAll();
         
         foreach($rs as $row){
-            $professeur = new Professeur($row['IDPERSONNE'],$row['CIVILITE'],$row['NOM'],$row['PRENOM'],$row['NUM_TEL'],$row['ADRESSE_MAIL'],$row['NUM_TEL_MOBILE'],$row['LOGINUTILISATEUR'],$row['MDPUTILISATEUR'] );
+            $classe = Classe::getOne($row['NUMCLASSE']);
+            $etudiant = new Etudiant($row['IDPERSONNE'],$classe,$row['CIVILITE'],$row['NOM'],$row['PRENOM'],$row['NUM_TEL'],$row['ADRESSE_MAIL'],$row['NUM_TEL_MOBILE'],$row['LOGINUTILISATEUR'],$row['MDPUTILISATEUR'] );
         }
         
-        return $professeur;
+        return $etudiant;
     }
     
     public function getIdPersonne() {
@@ -55,6 +59,14 @@ class Professeur {
 
     public function setIdPersonne($idPersonne) {
         $this->idPersonne = $idPersonne;
+    }
+
+    public function getClasse() {
+        return $this->classe;
+    }
+
+    public function setClasse($classe) {
+        $this->classe = $classe;
     }
 
     public function getCivilite() {
