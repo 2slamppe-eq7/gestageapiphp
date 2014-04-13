@@ -110,10 +110,26 @@
                             $unStage['numStage'] = $stage->getNumStage();
                             $unStage['organisation'] = (array)$stage->getOrganisation();                            
                             $unStage['anneeScol'] = (array)$stage->getAnneeScol();
-                            $unStage['etudiant'] = (array)$stage->getEtudiant();
-                            $unStage['etudiant']['classe'] = (array)$stage->getEtudiant()->getClasse();
-                            $unStage['etudiant']['classe']['specialite'] = (array)$stage->getEtudiant()->getClasse()->getSpecialite();
-                            $unstage['etudiant']['classe']['specialite']['filiere'] = (array)$stage->getEtudiant()->getClasse()->getSpecialite()->getFiliere();
+                            $unStage['etudiant'] = array();
+                            $unStage['etudiant']['idEtudiant'] = $stage->getEtudiant()->getIdPersonne();
+                            $unStage['etudiant']['classe']["numClasse"] = $stage->getEtudiant()->getClasse()->getNumClasse();
+                            $unStage['etudiant']['classe']["specialite"] = array();
+                            $unStage['etudiant']['classe']["specialite"]["idSpecialite"] = $stage->getEtudiant()->getClasse()->getSpecialite()->getIdSpecialite();
+                            $unStage['etudiant']['classe']["specialite"]["filiere"] = array();
+                            $unStage['etudiant']['classe']["specialite"]["filiere"]["numFiliere"] = $stage->getEtudiant()->getClasse()->getSpecialite()->getFiliere()->getNumFiliere();
+                            $unStage['etudiant']['classe']["specialite"]["filiere"]["libelleFiliere"] = $stage->getEtudiant()->getClasse()->getSpecialite()->getFiliere()->getLibelleFiliere();
+                            $unStage['etudiant']['classe']["specialite"]["libelleLongSpecialite"] = $stage->getEtudiant()->getClasse()->getSpecialite()->getLibelleSpecialite();
+                            $unStage['etudiant']['classe']["nomClasse"] = $stage->getEtudiant()->getClasse()->getNomClasse();
+                            $unStage['etudiant']['classe']["anneeScol"] = $stage->getEtudiant()->getClasse()->getAnneeScol();
+                            $unStage['etudiant']['civilite'] = $stage->getEtudiant()->getCivilite();
+                            $unStage['etudiant']['nom'] = $stage->getEtudiant()->getNom();
+                            $unStage['etudiant']['prenom'] = $stage->getEtudiant()->getPrenom();
+                            $unStage['etudiant']['tel'] = $stage->getEtudiant()->getNumTel();
+                            $unStage['etudiant']['civilite'] = $stage->getEtudiant()->getCivilite();
+                            $unStage['etudiant']['mail'] = $stage->getEtudiant()->getAdresseMail();
+                            $unStage['etudiant']['telMobile'] = $stage->getEtudiant()->getNumTelMobile();
+                            $unStage['etudiant']['login'] = $stage->getEtudiant()->getLogin();
+                            $unStage['etudiant']['mdp'] = $stage->getEtudiant()->getMdp();
                             $unStage['maitreStage'] = (array)$stage->getMaitreStage();
                             $unStage['dateDebut'] = $stage->getDateDebut();
                             $unStage['dateFin'] = $stage->getDateFin();
@@ -132,6 +148,7 @@
                         $json = str_replace("Organisation", "",$json);
                         $json = str_replace("Etudiant", "",$json);
                         $json = str_replace("MaitreStage", "",$json);
+                        $json = str_replace("AnneeScol", "",$json);
                         echo $json;
                 }
                 break;
