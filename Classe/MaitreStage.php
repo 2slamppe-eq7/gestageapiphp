@@ -49,6 +49,20 @@ class MaitreStage {
         return $maitreStage;
     }
     
+     public static function getAll(){
+        
+        $connexion = DbConnect::connect();
+        $sql = "SELECT p1.IDPERSONNE,p1.CIVILITE,p1.NOM,p1.PRENOM,p1.NUM_TEL,p1.ADRESSE_MAIL,p1.NUM_TEL_MOBILE,p1.LOGINUTILISATEUR,p1.MDPUTILISATEUR FROM PERSONNE p1 INNER JOIN MAITRE_STAGE m ON p1.IDPERSONNE = m.IDPERSONNE";
+        $query = $connexion->query($sql);
+        $rs = $query->fetchAll();
+        $maitreStages = array();
+        foreach($rs as $row){
+            $maitreStages[] = new MaitreStage($row['IDPERSONNE'],$row['CIVILITE'],$row['NOM'],$row['PRENOM'],$row['NUM_TEL'],$row['ADRESSE_MAIL'],$row['NUM_TEL_MOBILE'],$row['LOGINUTILISATEUR'],$row['MDPUTILISATEUR'] );
+        }
+        
+        return $maitreStages;
+    }
+    
     public function getIdPersonne() {
         return $this->idPersonne;
     }

@@ -64,6 +64,30 @@ class Stage {
         return $listStage;
     }
     
+    public static function create($unStage){
+        $connexion = DbConnect::connect();        
+        $idOrganisation = $unStage->getOrganisation()->getIdOrganisation();
+        $anneeScol = $unStage->getAnneeScol()->getAnneeScol();
+        $idEtudiant = $unStage->getEtudiant()->getIdPersonne();
+        $idMaitreStage = $unStage->getMaitreStage()->getIdPersonne();
+        $dateDebut = $unStage->getDateDebut();
+        $dateFin = $unStage->getDateFin();
+        $dateVisite = $unStage->getDateVisite();
+        $ville = $unStage->getVille();
+        $divers = $unStage->getDivers();
+        $bilanTravaux = $unStage->getBilanTravaux();
+        $ressourcesOutils = $unStage->getRessourcesOutils();
+        $commentaires = $unStage->getCommentaires();
+        $participationCCF = $unStage->getParticipationCCF();
+        $sql = "INSERT INTO STAGE(IDORGANISATION, ANNEESCOL, IDPERSONNE, IDPERSONNE_1, DATEDEBUT, DATEFIN, DATEVISITESTAGE, VILLE, DIVERS, BILANTRAVAUX, RESSOURCESOUTILS, COMMENTAIRES, PARTICIPATIONCCF)"; 
+        $sql.= "VALUES (".$idOrganisation.",".$anneeScol.",".$idEtudiant.",".$idMaitreStage.",".$dateDebut.",".$dateFin.",".$dateVisite.",".$ville.",".$divers.",".$bilanTravaux.",".$ressourcesOutils.",".$commentaires.",".$participationCCF.")";
+    
+        $query = $connexion->query($sql);
+        $rs = $query->execute();
+        return $rs;
+        
+    }
+    
     
     public function getNumStage() {
         return $this->numStage;

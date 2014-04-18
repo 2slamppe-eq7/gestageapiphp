@@ -36,6 +36,18 @@ class AnneeScol {
         return $listAnnee;
     }
     
+    public static function getOne($anneeScol){
+        $connexion = DbConnect::connect();
+        $sql = "SELECT * FROM ANNEESCOL WHERE ANNEESCOL = '".$anneeScol."'";
+        $query = $connexion->query($sql);
+        $rs = $query->fetchAll();
+        foreach($rs as $row){            
+            $anneeScol = new AnneeScol($row['ANNEESCOL']);
+        }
+        
+        return $anneeScol;
+    }
+    
 
 }
 

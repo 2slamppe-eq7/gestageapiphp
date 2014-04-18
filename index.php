@@ -43,7 +43,7 @@
                     $lesAnnees = AnneeScol::getAll();
                     foreach($lesAnnees as $annee){
                         $anneeScol = array();
-                        $anneeScol["annee"] = $annee->getAnneeScol();
+                        $anneeScol["anneeScol"] = $annee->getAnneeScol();
                         array_push($response["annees"],$anneeScol);
                     }
                     $json = json_encode($response);
@@ -120,7 +120,7 @@
                             $unStage['etudiant']['classe']["specialite"]["filiere"]["libelleFiliere"] = $stage->getEtudiant()->getClasse()->getSpecialite()->getFiliere()->getLibelleFiliere();
                             $unStage['etudiant']['classe']["specialite"]["libelleLongSpecialite"] = $stage->getEtudiant()->getClasse()->getSpecialite()->getLibelleSpecialite();
                             $unStage['etudiant']['classe']["nomClasse"] = $stage->getEtudiant()->getClasse()->getNomClasse();
-                            $unStage['etudiant']['classe']["anneeScol"] = $stage->getEtudiant()->getClasse()->getAnneeScol();
+                            $unStage['etudiant']['classe']["anneeScol"] = (array)$stage->getEtudiant()->getClasse()->getAnneeScol();
                             $unStage['etudiant']['civilite'] = $stage->getEtudiant()->getCivilite();
                             $unStage['etudiant']['nom'] = $stage->getEtudiant()->getNom();
                             $unStage['etudiant']['prenom'] = $stage->getEtudiant()->getPrenom();

@@ -53,6 +53,20 @@ class Etudiant {
         return $etudiant;
     }
     
+        public static function getEtudiantsByClasse($classe){
+        
+        $connexion = DbConnect::connect();
+        $sql = "SELECT p1.IDPERSONNE,e.NUMCLASSE,p1.CIVILITE,p1.NOM,p1.PRENOM,p1.NUM_TEL,p1.ADRESSE_MAIL,p1.NUM_TEL_MOBILE,p1.LOGINUTILISATEUR,p1.MDPUTILISATEUR FROM PERSONNE p1 INNER JOIN ETUDIANT e ON e.IDPERSONNE = p1.IDPERSONNE WHERE e.NUMCLASSE=".$classe;
+        $query = $connexion->query($sql);
+        $rs = $query->fetchAll();
+        $lesEtudiants = array();
+        foreach($rs as $row){
+            $classe = Classe::getOne($row['NUMCLASSE']);
+            $lesEtudiants[] = new Etudiant($row['IDPERSONNE'],$classe,$row['CIVILITE'],$row['NOM'],$row['PRENOM'],$row['NUM_TEL'],$row['ADRESSE_MAIL'],$row['NUM_TEL_MOBILE'],$row['LOGINUTILISATEUR'],$row['MDPUTILISATEUR'] );
+        }
+        
+        return $lesEtudiants;
+    }
     public function getIdPersonne() {
         return $this->idPersonne;
     }

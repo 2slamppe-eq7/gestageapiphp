@@ -47,6 +47,20 @@ class Organisation {
         
         return $organisation;
     }
+    
+      public static function getAll(){
+        
+        $connexion = DbConnect::connect();
+        $sql = "SELECT * FROM ORGANISATION";
+        $query = $connexion->query($sql);
+        $rs = $query->fetchAll();
+        $organisations = array();
+        foreach($rs as $row){
+            $organisations[] = new Organisation($row["IDORGANISATION"], $row["NOM_ORGANISATION"], $row["VILLE_ORGANISATION"], $row["ADRESSE_ORGANISATION"], $row["CP_ORGANISATION"], $row["TEL_ORGANISATION"], $row["FAX_ORGANISATION"], $row["FORMEJURIDIQUE"], $row["ACTIVITE"] );
+        }
+        
+        return $organisations;
+    }
 
     public function getIdOrganisation() {
         return $this->idOrganisation;

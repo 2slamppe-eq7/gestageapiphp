@@ -35,7 +35,8 @@ class Classe {
         $listClass = Array();
         foreach($rowset as $row){
             $specialite = Specialite::getOne($row['IDSPECIALITE']);
-            $listClass[] = new Classe($row['NUMCLASSE'], $specialite, $row['NOMCLASSE']);
+            $anneeScol = AnneeScol::getOne($row['ANNEESCOL']);
+            $listClass[] = new Classe($row['NUMCLASSE'], $specialite, $row['NOMCLASSE'], $anneeScol);
         }
         $connexion->close();
         return $listClass;
@@ -50,7 +51,8 @@ class Classe {
         
         foreach($rs as $row){
             $specialite = Specialite::getOne($row['IDSPECIALITE']);
-            $classe = new Classe($row['NUMCLASSE'],$specialite,$row['NOMCLASSE']);
+            $anneeScol = AnneeScol::getOne($row['ANNEESCOL']);
+            $classe = new Classe($row['NUMCLASSE'],$specialite,$row['NOMCLASSE'],$anneeScol);
         }
         
         return $classe;
