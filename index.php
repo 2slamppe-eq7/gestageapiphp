@@ -152,6 +152,32 @@
                         echo $json;
                 }
                 break;
+                    case 'organisation':
+                        switch($fonc){
+                        case 'getAll':
+                            $response = array();
+                            $lesOrganisations = array();
+                            $response["organisations"] = array();
+                            $lesOrganisations = Organisation::getAll();
+                            foreach($lesOrganisations as $organisation){
+                                $uneOrganisation = array();
+                                $uneOrganisation["idOrganisation"] = $organisation->getIdOrganisation();
+                                $uneOrganisation["nom"] = $organisation->getNom();
+                                $uneOrganisation["ville"] = $organisation->getVille();
+                                $uneOrganisation["adresse"] = $organisation->getAdresse();
+                                $uneOrganisation["cp"] = $organisation->getCp();
+                                $uneOrganisation["tel"] = $organisation->getTel();
+                                $uneOrganisation["fax"] = $organisation->getFax();
+                                $uneOrganisation["formeJuridique"] = $organisation->getFormeJuridique();
+                                $uneOrganisation["activite"] = $organisation->getActivite();
+                                  
+                                array_push($response["organisations"],$uneOrganisation);
+                            }
+                            $json = json_encode($response);
+                            echo $json;
+                            break;
+                        }
+                        break;
                    
        }
        
