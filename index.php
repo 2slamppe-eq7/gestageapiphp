@@ -210,7 +210,7 @@ if (isset($_POST['fonc']) && isset($_POST['tag'])) {
             $lesOrganisations = Organisation::getAll();
             foreach($lesOrganisations as $organisation){
             $uneOrganisation = array();
-            $uneOrganisation["idOrganisation"] = $organisation->getIdOrganisation();
+            $uneOrganisation["id"] = $organisation->getIdOrganisation();
             $uneOrganisation["nom"] = $organisation->getNom();
             $uneOrganisation["ville"] = $organisation->getVille();
             $uneOrganisation["adresse"] = $organisation->getAdresse();
