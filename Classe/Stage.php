@@ -64,6 +64,24 @@ class Stage {
         return $listStage;
     }
     
+    public static function getOne($idStage){
+        $connexion = DbConnect::connect();
+        $sql = "SELECT * FROM STAGE WHERE NUM_STAGE = ".$idStage;
+        $query = $connexion->query($sql);
+        $rs = $query->fetchAll();
+        $stage = null;
+        foreach($rs as $row){ 
+            $organisation = Organisation::getOne($row['IDORGANISATION']);
+            $anneeScol = new AnneeScol($row['ANNEESCOL']);
+            $etudiant = Etudiant::getOne($row['IDPERSONNE']);
+            $maitreStage = MaitreStage::getOne($row['IDPERSONNE_1']);
+            
+            $stage = new Stage($row['NUM_STAGE'],$organisation,$anneeScol,$etudiant,$maitreStage,$row['DATEDEBUT'],$row['DATEFIN'],$row['DATEVISITESTAGE'],$row['VILLE'],$row['DIVERS'],$row['BILANTRAVAUX'],$row['RESSOURCESOUTILS'],$row['COMMENTAIRES'],$row['PARTICIPATIONCCF']);
+        }
+        
+        return $stage;
+    }
+    
     public static function create($unStage){
         $connexion = DbConnect::connect();        
         $idOrganisation = $unStage->getOrganisation()->getIdOrganisation();

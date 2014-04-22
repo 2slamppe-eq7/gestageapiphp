@@ -6,5 +6,6 @@
    <input type="hidden" name="annee" value="2013 - 2014"/>
    <input type="hidden" name="filiere" value="1"/>
    <input type="hidden" name="classe" value="1"/>
+   <input type="hidden" name="idStage" value="1"/>
     <input type="submit" value="valider"/>
 </form>
