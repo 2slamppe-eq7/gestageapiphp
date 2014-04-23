@@ -198,6 +198,25 @@ if (isset($_POST['fonc']) && isset($_POST['tag'])) {
                 $json = str_replace("AnneeScol", "", $json);
                 echo $json;
                 break;
+                case 'setOne':
+                    $stage = new Stage();
+                    $stage->setNumStage($_POST["num_stage"]);
+                    $stage->setOrganisation(Organisation::getOne($_POST["organisation"]));
+                    $stage->setDateDebut($_POST["dateDebut"]);
+                    $stage->setDateFin($_POST["dateFin"]);
+                    $stage->setDateVisite($_POST["dateFin"]);
+                    $stage->setDateVisite($_POST["dateVisiteStage"]);
+                    $stage->setDivers($_POST["divers"]);
+                    $stage->setBilanTravaux($_POST["bilanTravaux"]);
+                    $stage->setRessourcesOutils($_POST["ressourcesOutils"]);
+                    $stage->setCommentaires($_POST["commentaires"]);
+                    $stage->setParticipationCCF($_POST["participationCcf"]);
+                    $result = Stage::update($stage);
+                    $response["SUCCESS"] = $result;
+                    $json = json_encode($response);
+                    echo $json;
+                    break;
+            
             
             }
             break;

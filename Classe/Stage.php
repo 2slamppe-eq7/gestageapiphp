@@ -82,26 +82,32 @@ class Stage {
         return $stage;
     }
     
-    public static function create($unStage){
-        $connexion = DbConnect::connect();        
+    public static function update($unStage){
+        $connexion = DbConnect::connect(); 
+        $numStage = $unStage->getNumStage();
         $idOrganisation = $unStage->getOrganisation()->getIdOrganisation();
-        $anneeScol = $unStage->getAnneeScol()->getAnneeScol();
-        $idEtudiant = $unStage->getEtudiant()->getIdPersonne();
-        $idMaitreStage = $unStage->getMaitreStage()->getIdPersonne();
+        //$anneeScol = $unStage->getAnneeScol();
+        //$idEtudiant = $unStage->getEtudiant()->getIdPersonne();
+        //$idMaitreStage = $unStage->getMaitreStage()->getIdPersonne();
         $dateDebut = $unStage->getDateDebut();
         $dateFin = $unStage->getDateFin();
         $dateVisite = $unStage->getDateVisite();
-        $ville = $unStage->getVille();
+        //$ville = $unStage->getVille();
         $divers = $unStage->getDivers();
         $bilanTravaux = $unStage->getBilanTravaux();
         $ressourcesOutils = $unStage->getRessourcesOutils();
         $commentaires = $unStage->getCommentaires();
         $participationCCF = $unStage->getParticipationCCF();
-        $sql = "INSERT INTO STAGE(IDORGANISATION, ANNEESCOL, IDPERSONNE, IDPERSONNE_1, DATEDEBUT, DATEFIN, DATEVISITESTAGE, VILLE, DIVERS, BILANTRAVAUX, RESSOURCESOUTILS, COMMENTAIRES, PARTICIPATIONCCF)"; 
-        $sql.= "VALUES (".$idOrganisation.",".$anneeScol.",".$idEtudiant.",".$idMaitreStage.",".$dateDebut.",".$dateFin.",".$dateVisite.",".$ville.",".$divers.",".$bilanTravaux.",".$ressourcesOutils.",".$commentaires.",".$participationCCF.")";
-    
-        $query = $connexion->query($sql);
-        $rs = $query->execute();
+        $sql = "UPDATE STAGE SET IDORGANISATION=".$idOrganisation.",DATEDEBUT='".$dateDebut."',DATEFIN='".$dateFin."',";
+        $sql.="DATEVISITESTAGE='".$dateVisite."',DIVERS='".$divers."',BILANTRAVAUX='".$bilanTravaux."',RESSOURCESOUTILS='".$ressourcesOutils."',";
+        $sql.="COMMENTAIRES='".$commentaires."',PARTICIPATIONCCF=".$participationCCF." WHERE NUM_STAGE='".$numStage."';";
+        try{
+        $queryPrepare = $connexion->prepare($sql);
+        $rs = $queryPrepare->execute();
+        }catch(Exception $e){
+            
+        }
+        
         return $rs;
         
     }
